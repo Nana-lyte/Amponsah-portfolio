@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jordan Lee — Student & Researcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #faf7f2;
+      --bg2: #f3ede3;
+      --surface: #ffffff;
+      --border: #e8dfd0;
+      --text: #2c2416;
+      --body: #5a4e3c;
+      --muted: #9c8b76;
+      --accent: #c4622d;
+      --accent2: #7a9e7e;
+      --accent3: #5b7fa6;
+      --warm: #e8c49a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.25rem 5rem;
+      background: rgba(250,247,242,0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -2px; left: 0; right: 0;
+      height: 1px; background: var(--accent);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.25s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    .page { max-width: 820px; margin: 0 auto; padding: 0 2rem; }
+
+    #hero {
+      padding-top: 10rem;
+      padding-bottom: 5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 3rem;
+      align-items: start;
+    }
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.1s forwards;
+    }
+    h1.hero-name {
+      font-family: 'Lora', serif;
+      font-weight: 600;
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.25s forwards;
+    }
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--body);
+      line-height: 1.85;
+      max-width: 500px;
+      margin-bottom: 1.75rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.4s forwards;
+    }
+    .hero-meta {
+      display: flex; flex-wrap: wrap; gap: 0.6rem;
+      margin-bottom: 2.25rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.55s forwards;
+    }
+    .meta-tag {
+      font-size: 0.78rem;
+      padding: 0.3rem 0.85rem;
+      border-radius: 100px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--body);
+    }
+    .meta-tag.green { background: #edf5ee; border-color: #c0d9c2; color: #4a7a50; }
+    .meta-tag.blue  { background: #edf2f7; border-color: #b8ccdf; color: #3d6285; }
+    .hero-links {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.7s forwards;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.6rem 1.4rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--accent); color: white; border: 1.5px solid var(--accent); }
+    .btn-primary:hover { background: #a8521f; border-color: #a8521f; }
+    .btn-ghost { background: transparent; color: var(--body); border: 1.5px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--muted); color: var(--text); }
+
+    .avatar-wrap { opacity: 0; animation: fadeIn 1s 0.3s forwards; }
+    .avatar {
+      width: 155px; height: 155px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--warm) 0%, #d4956a 50%, var(--accent2) 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem;
+      box-shadow: 0 8px 40px rgba(196,98,45,0.18), 0 2px 8px rgba(0,0,0,0.06);
+      border: 4px solid var(--surface);
+    }
+
+    .divider { border: none; border-top: 1px solid var(--border); }
+
+    .section { padding: 5rem 0; }
+    .section-label {
+      display: flex; align-items: center; gap: 0.75rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.75rem;
+    }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    h2.section-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+
+    .about-body { font-size: 1rem; color: var(--body); line-height: 1.85; }
+    .about-body p { margin-bottom: 1.1rem; }
+    .about-body a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    .about-pull {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--text);
+      border-left: 3px solid var(--warm);
+      padding-left: 1.5rem;
+      margin: 2rem 0;
+      line-height: 1.65;
+    }
+
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.75rem;
+      text-decoration: none; color: inherit;
+      transition: all 0.25s;
+      display: flex; flex-direction: column; gap: 0.75rem;
+      position: relative; overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--warm));
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .project-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.07); }
+    .project-card:hover::before { opacity: 1; }
+    .project-emoji { font-size: 1.5rem; }
+    .project-card h3 { font-family: 'Lora', serif; font-size: 1rem; font-weight: 600; color: var(--text); line-height: 1.3; }
+    .project-card p { font-size: 0.84rem; color: var(--body); line-height: 1.65; flex: 1; }
+    .project-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 0.25rem; }
+    .project-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .ptag { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.06em; color: var(--muted); background: var(--bg2); padding: 0.15rem 0.5rem; border-radius: 100px; }
+    .project-link { font-size: 0.8rem; color: var(--accent); font-weight: 500; }
+
+    .posts-list { display: flex; flex-direction: column; }
+    .post-item {
+      display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 2rem;
+      padding: 1.4rem 0; border-bottom: 1px solid var(--border);
+      text-decoration: none; color: inherit; transition: all 0.2s;
+    }
+    .post-item:first-child { border-top: 1px solid var(--border); }
+    .post-item:hover .post-title { color: var(--accent); }
+    .post-category { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.2rem; }
+    .post-title { font-family: 'Lora', serif; font-size: 1rem; font-weight: 500; color: var(--text); line-height: 1.4; transition: color 0.2s; }
+    .post-meta { font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
+
+    .interests-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .interest-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+      padding: 1.5rem 1.25rem; transition: all 0.2s;
+    }
+    .interest-card:hover { background: var(--bg2); transform: translateY(-2px); }
+    .interest-icon { font-size: 1.6rem; margin-bottom: 0.6rem; }
+    .interest-card h3 { font-family: 'Lora', serif; font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
+    .interest-card p { font-size: 0.8rem; color: var(--body); line-height: 1.6; }
+
+    .contact-inner { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 3rem; text-align: center; }
+    .contact-inner p { font-size: 1rem; color: var(--body); line-height: 1.8; max-width: 480px; margin: 0 auto 2rem; }
+    .contact-email {
+      display: inline-block;
+      font-family: 'Lora', serif; font-size: 1.5rem; font-style: italic;
+      color: var(--accent); text-decoration: none;
+      border-bottom: 1.5px solid transparent; transition: border-color 0.2s; margin-bottom: 2.5rem;
+    }
+    .contact-email:hover { border-color: var(--accent); }
+    .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    footer { padding: 2.5rem 0; text-align: center; font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--border); }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.65s, transform 0.65s; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    @media (max-width: 720px) {
+      nav { padding: 1rem 1.5rem; }
+      .page { padding: 0 1.25rem; }
+      #hero { grid-template-columns: 1fr; }
+      .avatar-wrap { display: none; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .interests-grid { grid-template-columns: 1fr 1fr; }
+      .contact-inner { padding: 2rem 1.5rem; }
+    }
+    @media (max-width: 480px) {
+      .interests-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="#hero">Nana Amponsah</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#blog">Writing</a></li>
+      <li><a href="#interests">Interests</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+
+    <section id="hero">
+      <div>
+        <div class="hero-eyebrow">Recent Graduate · Biology </div>
+        <h1 class="hero-name">Hi, I'm Nana —<br>curious about everything solution,<br> to help humanity and earth.</h1>
+        <p class="hero-desc">
+          I'm am a recent graduate who explores functional genetics and disease biology with an emphasis on translating insights into healthcare solutions. I'm passionate about research and cultural exchange. I write, create spaces for growth, and seek to understand the evolving possibilitiesof science in the world.
+        </p>
+        <div class="hero-meta">
+          <span class="meta-tag">🏛 Scripps College</span>
+          <span class="meta-tag green">Foreign Languages Minor</span>
+          <span class="meta-tag blue">Researcher</span>
+        </div>
+        <div class="hero-links">
+          <a href="#projects" class="btn btn-primary">See my work</a>
+          <a href="#contact" class="btn btn-ghost">Get in touch</a>
+        </div>
+      </div>
+      <div class="avatar-wrap">
+        <div class="avatar">🌿</div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <section id="about" class="section">
+      <div class="section-label">About me</div>
+      <div class="reveal">
+        <h2 class="section-title">Who I am</h2>
+        <div class="about-body">
+          <p>I grew up asking too many questions about myself and the world. Mostly, I wondered about the flow of life which turned my eyes to seek all things biology. Consequently, I am currently a recent graduate in biology, who loves to research and find the ways science connects to human health <strong>and real-world impact</strong>. My academic experiences have introduced me to experimental biology, and I am especially interested in understanding how molecular and cellular mechanisms can inform broader questions in health and medicine. How can I help to fix and bring creation back to perfect originality? - sounds impossible sometimes, but this is the question that plagues me when I see things amiss. My passion to solve problems draws me to research environments that are both rigorous and collaborative, where curiosity and teamwork drive meaningful discovery.</p>
+          <div class="about-pull">
+            "Health is a state of complete harmony of the body, mind and spirit..." - B.K.S Iyengar
+          </div>
+          <p> As an international student and foreign languages minor in French and Korean, I've grown an adaptability, cross-cultural awareness, and strong communication skills which I introduce to the spaces I am part of. These experiences have deepened my understanding and interest in community, inclusion, and the human side of science. </p>
+        </div>
+        <p> Outside of academics, I enjoy learning languages and engaging with different cultures - one of the ways I believe could bridge healthcare accessibility. I also love writing, and I love to cook. I volunteer toward Prison Library Projects while trying to remember scores from my last piano lesson, which unfortunately never works.</p>
+          <p> I look forward to contributing my skills and to continue building technical experience to work toward scientific and social work.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <section id="projects" class="section">
+      <div class="section-label">Projects &amp; Research</div>
+      <h2 class="section-title reveal">Things I've built<br>&amp; studied</h2>
+      <div class="projects-grid">
+
+        <a href="#" class="project-card reveal">
+          <div class="project-emoji">🪰</div>
+          <h3>Functional Characterization of Jarid2 and Virilizer as Putative CHD1-Interacting Proteins</h3>
+          <p>My senior thesis project. Mapped CHD1-associated protein networks using functional genomics to investigate its role in chromatin regulation to better understand their role in dysregulation and diseases like prostate cancer.</p>
+          <div class="project-foot">
+            <div class="project-tags"><span class="ptag">Research</span><span class="ptag">Python</span></div>
+            <span class="project-link">Read paper →</span>
+          </div>
+        </a>
+
+
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <section id="blog" class="section">
+      <div class="section-label">Writing</div>
+      <h2 class="section-title reveal">Coming Soon</h2>
+      <div class="posts-list">
+        <a href="#" class="post-item reveal">
+          <div>
+            <div class="post-category">International Student Experience</div>
+            <div class="post-title"> What is networking? Why build relationships?</div>
+          </div>
+          <div class="post-meta">Month Year · ~ min</div>
+        </a>
+        <a href="#" class="post-item reveal">
+          <div>
+            <div class="post-category">Research</div>
+            <div class="post-title"> No lab is open: is research even for me?</div>
+          </div>
+          <div class="post-meta">Month Year · ~ min</div>
+        </a>
+      </div>
+      <div style="margin-top: 2rem;" class="reveal">
+        <a href="#" class="btn btn-ghost">All posts →</a>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <section id="interests" class="section">
+      <div class="section-label">Interests</div>
+      <h2 class="section-title reveal">What I care about</h2>
+      <div class="interests-grid">
+        <div class="interest-card reveal">
+          <div class="interest-icon">🏃</div>
+          <h3>Hiking</h3>
+          <p>Endurance building, humbling, and great for thinking. The Sedona trails were eye opening.</p>
+        </div>
+        <div class="interest-card reveal">
+          <div class="interest-icon">🍳</div>
+          <h3>Cooking</h3>
+          <p>Fermenting, braising, and attempting Ghanaian cuisine with Western ingredients - super interesting flavors.</p>
+        </div>
+        <div class="interest-card reveal">
+          <div class="interest-icon">📚</div>
+          <h3>Reading</h3>
+          <p>Building knowledge through realistic biographies, historical content and almost all things fiction. Classics have me glued.</p>
+        </div>
+        <div class="interest-card reveal">
+          <div class="interest-icon">🎹</div>
+          <h3>Piano</h3>
+          <p>Learned for a semester. Hope to continue playing.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <section id="contact" class="section">
+      <div class="section-label">Contact</div>
+      <div class="contact-inner reveal">
+        <h2 class="section-title" style="margin-bottom: 1rem;">Let's connect</h2>
+        <p>I'm always happy to hear from researchers, health professionals, biologists, language gurus or anyone who values learning or wants to chat. Don't be shy.</p>
+        <a href="mailto:nyarkoahamps@gmail.com" class="contact-email">nyarkoahamps@gmail.com</a>
+        <div class="contact-links">
+          <a href="mailto:nyarkoahamps@gmail.com" class="btn btn-primary">Email me</a>
+          <a href="https://www.linkedin.com/in/nana-nyarkoah-amponsah-092b62211/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BMkHEemQ3SEO4uWBP0L2%2FAA%3D%3D" target="_blank" class="btn btn-ghost">LinkedIn</a>
+          <a href="#" class="btn btn-ghost">CV available upon request</a>
+        </div>
+      </div>
+    </section>  
+
+  </div>
+
+  <footer>
+    <div class="page">
+      Designed and built by <a href="#">Nana Amponsah</a> · United States · 2026
+    </div>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 70);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
