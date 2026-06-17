@@ -167,28 +167,27 @@
 
       position: relative;
 
-      padding: 16px;
+      padding: 14px;
       border-radius: 50%;
     }
     .avatar-wrap::before {
       content: "";
       position: absolute;
-      inset: -10px;
+      inset: -8px;
       border-radius: 50%;
 
       background: radial-gradient(
         circle,
-      rgba(122, 158, 126, 0.25),
+        rgba(122, 158, 126, 0.22),
         transparent 65%
       );
 
-      filter: blur(7px);
+      filter: blur(6px);
       z-index: 0;
     }
     .avatar {
-      height: 5.5em; /* ≈ two lines of your hero text */
-      width: auto;
-      aspect-ratio: 1 / 1;
+      width: 260px;   /* BIGGER again (fixes your issue) */
+      height: 260px;
 
       border-radius: 50%;
       object-fit: cover;
@@ -197,15 +196,17 @@
       position: relative;
       z-index: 1;
 
-      border: 1px solid rgba(232, 223, 208, 0.75);
+      /* soft clean border (no harsh cutout) */
+      border: 2px solid rgba(232, 223, 208, 0.75);
 
-      box-shadow: 0 10px 25px rgba(44, 36, 22, 0.10);
+      /* soft natural shadow */
+      box-shadow: 0 12px 30px rgba(44, 36, 22, 0.12);
 
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .avatar:hover {
-      transform: scale(1.04);
-      box-shadow: 0 18px 45px rgba(44, 36, 22, 0.16);
+      transform: scale(1.03);
+      box-shadow: 0 16px 40px rgba(44, 36, 22, 0.16);
     }
 
     .divider { border: none; border-top: 1px solid var(--border); }
